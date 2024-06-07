@@ -179,6 +179,19 @@ export default function FabricPage({params}: { params: { id: string } }) {
         }
     }
 
+    const onClickDownloadCanvas = () => {
+
+        const dataURL = fabricCanvas?.toDataURL({
+            format: 'png',
+        });
+        const link: any = document.createElement('a');
+        link.download = 'download.png';
+        link.href = dataURL;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
     return (
         <div>
             <div className="max-w-5xl mx-auto my-20 flex flex-col gap-4 justify-center align-center">
@@ -236,6 +249,11 @@ export default function FabricPage({params}: { params: { id: string } }) {
                                     </div>
                                 </DialogContent>
                             </Dialog>
+                        </div>
+                        <div>
+                            <Button variant="outline" onClick={onClickDownloadCanvas}>
+                                Save
+                            </Button>
                         </div>
                     </div>
                 </div>
