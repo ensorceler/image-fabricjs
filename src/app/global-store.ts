@@ -86,7 +86,7 @@ export const images = [
         id: 4,
         src: "artboard.png",
         title: "Arboard",
-        clipPathSrc: "Vector 3 (1).svg",
+        clipPathSrc: "artboard_clip_1.svg",
         clipPathOptions: {
             originX: 'center',
             originY: 'center',
@@ -111,7 +111,7 @@ export const images = [
         id: 5,
         src: "XYZ.png",
         title: "XYZ",
-        clipPathSrc: "Vector 4.svg",
+        clipPathSrc: "XYZ_clip.svg",
         clipPathOptions: {
             originX: 'center',
             originY: 'center',
