@@ -29,6 +29,9 @@ export default function FabricPage({params}: { params: { id: string } }) {
     });
     const [imageA, setImageA] = useState<any>();
     //const [imageB, setImageB] = useState<any>();
+    const [insertedText, setInsertedText] = useState<string>("");
+    const [isTextInsterted, setIsTextInsterted] = useState<boolean>(false);
+    //const [is]
 
     const getImageInfo = async () => {
         setImageInfo(images[parseInt(imageId, 10) - 1]);
@@ -138,7 +141,29 @@ export default function FabricPage({params}: { params: { id: string } }) {
     const onOpenChangeUploadDialog = (open: boolean) => {
 
         if (uploadedImage.fileURL && !open) {
+            /*
+            if (isTextInsterted) {
 
+                fabric?.loadSVGFromURL(`/${imageInfo?.textClipPathSrc}`, (object: any) => {
+                    //imageA
+                    //imageA.clipPath=object
+                    const textEllipsePath = new fabric.Path(object?.[0]?.d, {
+                        backgroundColor: "#000",
+                        originX: "center",
+                        originY: "center",
+                        top: imageInfo?.insertedTextOptions?.top ?? 100,
+                        left: imageInfo?.insertedTextOptions?.left ?? 0,
+                        selectable: true,
+                    });
+                    textEllipsePath.inverted = true;
+                    //console.log("textellipse path=>",)
+                    console.log("text/ellipse path=>",textEllipsePath);
+                    imageA.clipPath = textEllipsePath;
+                    fabricCanvas?.renderAll();
+                })
+            }
+
+             */
             // add the clip to base image
             fabric.loadSVGFromURL(`/${imageInfo.clipPathSrc}`, (object: any, options) => {
                 //console.log("object =>", object);
@@ -148,12 +173,11 @@ export default function FabricPage({params}: { params: { id: string } }) {
                     originY: "center",
                     top: imageInfo?.clipPathOptions?.top ?? 0,
                     left: imageInfo?.clipPathOptions?.left ?? 0,
-                    //top: -350,
-                    //left: 0,
                     selectable: true,
                 });
                 ellipsePath.inverted = true;
                 imageA.clipPath = ellipsePath;
+                console.log("ellipse path =>",ellipsePath);
                 fabricCanvas?.renderAll();
             })
 
@@ -175,7 +199,9 @@ export default function FabricPage({params}: { params: { id: string } }) {
                 imageB.selectable = true;
                 fabricCanvas?.add(imageB);
             }, {crossOrigin: ""});
-            console.log("image A", imageA);
+            //console.log("image A", imageA);
+
+
         }
     }
 
@@ -240,6 +266,19 @@ export default function FabricPage({params}: { params: { id: string } }) {
                                                     <p className="font-medium text-sm text-black">Uploaded Media</p>
                                                     <Image src={uploadedImage?.fileURL!} alt="Image Uploaded"
                                                            height={350} width={350}/>
+                                                    <Button variant="ghost" className="w-fit" onClick={() => {
+                                                        setIsTextInsterted(p => !p)
+                                                    }}>
+                                                        Add Text
+                                                    </Button>
+                                                    {isTextInsterted &&
+                                                        <div>
+                                                            <Input type="text"
+                                                                   value={insertedText}
+                                                                   onChange={(e) => {
+                                                                       setInsertedText(e.target.value)
+                                                                   }}/>
+                                                        </div>}
                                                     <DialogClose asChild>
                                                         <Button variant="default" className="w-fit">Replace</Button>
                                                     </DialogClose>
